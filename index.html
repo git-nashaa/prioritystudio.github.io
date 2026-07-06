@@ -1,492 +1,674 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Priority Studio - Your all-in-one digital department for branding, tech setup, and launch content. Let us handle your digital needs so you can focus on your business.">
-    <title>Priority Studio | Your Complete Digital Department</title>
-    
-    <!-- Preload critical resources -->
-    <link rel="preload" href="css/style.css" as="style">
-    <link rel="preload" href="js/main.js" as="script">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animations.css">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Priority Studio — your complete digital department. Website building, Shopify set-up and social media management for Cape Town entrepreneurs.">
+<title>Priority Studio | Your Complete Digital Department</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-primary:#E8C4C4;
+    --color-secondary:#D9B8A8;
+    --color-accent:#A67F6F;
+    --color-accent-dark:#8C6B5F;
+    --color-dark:#2D2D2D;
+    --color-light:#F9F5F2;
+    --color-white:#FFFFFF;
+    --font-primary:'DM Sans', sans-serif;
+    --font-secondary:'Playfair Display', serif;
+    --radius-sm:4px; --radius-md:8px; --radius-lg:16px; --radius-xl:24px; --radius-round:50%;
+    --shadow-sm:0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md:0 4px 8px rgba(0,0,0,0.1);
+    --shadow-lg:0 8px 24px rgba(0,0,0,0.14);
+    --transition-fast:0.2s ease; --transition-medium:0.3s ease;
+  }
+  *{margin:0; padding:0; box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{ font-family:var(--font-primary); color:var(--color-dark); background:var(--color-white); line-height:1.65; overflow-x:hidden; }
+  img{max-width:100%; display:block;}
+  a{text-decoration:none; color:inherit; transition:var(--transition-fast);}
+  ul{list-style:none;}
+  button{border:none; background:none; cursor:pointer; font-family:inherit;}
+  .container{ width:100%; max-width:1200px; margin:0 auto; padding:0 24px; }
+  h1,h2,h3,h4{ font-family:var(--font-secondary); line-height:1.2; color:var(--color-dark); font-weight:600; }
+  :focus-visible{ outline:2px solid var(--color-accent); outline-offset:3px; }
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important;} }
+
+  .eyebrow{ font-family:var(--font-primary); font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--color-accent); font-weight:700; display:inline-flex; align-items:center; gap:8px; }
+  .eyebrow::before{ content:""; width:22px; height:1px; background:var(--color-accent); display:inline-block; }
+
+  .section-title{ font-size:clamp(28px,3.4vw,38px); margin-bottom:14px; }
+  .section-subtitle{ color:rgba(45,45,45,0.75); font-size:16px; max-width:600px; }
+  .section-head{ text-align:center; margin:0 auto 54px; max-width:640px; }
+  .section-head.left{ text-align:left; margin:0 0 40px; }
+
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:13px 26px; border-radius:100px; font-weight:700; font-size:14.5px; cursor:pointer; border:1px solid transparent; transition:var(--transition-medium); }
+  .btn-primary{ background:var(--color-accent); color:var(--color-white); }
+  .btn-primary:hover{ background:var(--color-accent-dark); transform:translateY(-2px); box-shadow:var(--shadow-md); }
+  .btn-secondary{ background:transparent; color:var(--color-accent); border-color:var(--color-accent); }
+  .btn-secondary:hover{ background:rgba(166,127,111,0.1); transform:translateY(-2px); }
+  .btn-dark{ background:var(--color-dark); color:var(--color-white); }
+  .btn-dark:hover{ transform:translateY(-2px); box-shadow:var(--shadow-md); }
+  .btn-whatsapp{ background:#25D366; color:#0c3d1f; }
+  .btn-whatsapp:hover{ transform:translateY(-2px); box-shadow:var(--shadow-md); }
+
+  /* Header */
+  header.site-header{ position:fixed; top:0; left:0; right:0; z-index:200; background:rgba(255,255,255,0.9); backdrop-filter:blur(6px); box-shadow:var(--shadow-sm); padding:18px 0; transition:var(--transition-medium); }
+  header.site-header.scrolled{ padding:12px 0; }
+  header .container{ display:flex; align-items:center; justify-content:space-between; }
+  .logo{ font-family:var(--font-secondary); font-size:22px; font-weight:700; color:var(--color-dark); }
+  .logo span{ color:var(--color-accent); }
+  nav.nav{ display:flex; align-items:center; gap:34px; }
+  .nav-list{ display:flex; gap:28px; }
+  .nav-link{ position:relative; padding:4px 0; font-weight:500; font-size:14.5px; color:var(--color-dark); }
+  .nav-link::after{ content:""; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:var(--color-accent); transition:var(--transition-medium); }
+  .nav-link:hover::after, .nav-link.active::after{ width:100%; }
+  .nav-cta{ padding:11px 22px; font-size:14px; }
+  .mobile-nav-toggle{ display:none; width:28px; height:22px; position:relative; }
+  .hamburger, .hamburger::before, .hamburger::after{ content:""; position:absolute; width:100%; height:2px; background:var(--color-dark); transition:var(--transition-medium); left:0; }
+  .hamburger{ top:50%; transform:translateY(-50%); }
+  .hamburger::before{ top:-8px; } .hamburger::after{ top:8px; }
+  .mobile-nav-toggle.open .hamburger{ background:transparent; }
+  .mobile-nav-toggle.open .hamburger::before{ transform:rotate(45deg); top:0; }
+  .mobile-nav-toggle.open .hamburger::after{ transform:rotate(-45deg); top:0; }
+
+  @media (max-width:900px){
+    nav.nav{ position:fixed; top:0; right:-100%; width:80%; max-width:340px; height:100vh; background:var(--color-white);
+      flex-direction:column; align-items:flex-start; padding:110px 32px; box-shadow:-6px 0 20px rgba(0,0,0,0.1); transition:.35s ease; gap:34px; }
+    nav.nav.open{ right:0; }
+    .nav-list{ flex-direction:column; gap:20px; }
+    .mobile-nav-toggle{ display:block; z-index:210; }
+    .nav-cta{ width:100%; }
+  }
+
+  /* Hero */
+  .hero{ padding:150px 0 80px; background:linear-gradient(160deg, var(--color-light) 0%, #F3E4E0 100%); position:relative; overflow:hidden; }
+  .hero::before{ content:""; position:absolute; top:-140px; right:-120px; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle, rgba(232,196,196,0.7), transparent 70%); }
+  .hero::after{ content:""; position:absolute; bottom:-160px; left:-140px; width:380px; height:380px; border-radius:50%; background:radial-gradient(circle, rgba(217,184,168,0.55), transparent 70%); }
+  .hero .container{ position:relative; display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center; }
+  .hero-title{ font-size:clamp(36px,5vw,58px); }
+  .hero-title em{ font-style:normal; color:var(--color-accent); }
+  .hero-text{ margin:20px 0 30px; font-size:17px; color:rgba(45,45,45,0.75); max-width:46ch; }
+  .hero-cta{ display:flex; gap:16px; flex-wrap:wrap; }
+
+  .mockup-wrap{ position:relative; }
+  .mockup-tabs{ display:flex; gap:8px; margin-bottom:14px; }
+  .mockup-tab{ flex:1; background:var(--color-white); border:1px solid rgba(166,127,111,0.3); color:var(--color-accent);
+    padding:10px 8px; border-radius:12px; font-size:13px; font-weight:700; cursor:pointer; transition:.25s; text-align:center; }
+  .mockup-tab.active{ background:var(--color-accent); color:var(--color-white); border-color:var(--color-accent); }
+  .mockup-frame{ background:var(--color-white); border-radius:18px; overflow:hidden; box-shadow:var(--shadow-lg); border:1px solid rgba(166,127,111,0.15); }
+  .mockup-bar{ display:flex; gap:6px; padding:12px 16px; background:var(--color-light); }
+  .mockup-bar span{ width:9px; height:9px; border-radius:50%; background:rgba(45,45,45,0.15); }
+  .mockup-body{ padding:26px; min-height:230px; }
+  .mockup-body h4{ font-size:20px; margin-bottom:8px; }
+  .mockup-body p{ margin:0 0 14px; color:rgba(45,45,45,0.7); font-size:14px; }
+  .mockup-chip{ display:inline-block; padding:6px 12px; border-radius:100px; font-size:12px; font-weight:700; margin-right:6px; margin-bottom:6px; }
+  .chip-a{ background:rgba(166,127,111,0.14); color:var(--color-accent-dark); }
+  .chip-b{ background:rgba(232,196,196,0.5); color:#9c5f5f; }
+  .chip-c{ background:rgba(217,184,168,0.45); color:#7a5240; }
+  .mockup-bars{ display:flex; gap:8px; align-items:flex-end; height:68px; margin-top:16px; }
+  .mockup-bars i{ display:block; width:16px; background:var(--color-primary); border-radius:5px 5px 0 0; }
+
+  /* Stats */
+  .stats{ background:var(--color-white); padding:50px 0; }
+  .stats .container{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; text-align:center; }
+  .stat-number{ font-family:var(--font-secondary); font-size:clamp(28px,3.6vw,38px); color:var(--color-accent); font-weight:700; }
+  .stat-label{ font-size:13px; color:rgba(45,45,45,0.65); text-transform:uppercase; letter-spacing:0.06em; margin-top:4px; }
+
+  section{ padding:96px 0; }
+
+  /* About */
+  .about{ background:var(--color-light); }
+  .about .container{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:64px; align-items:center; }
+  .about-visual{ aspect-ratio:4/5; border-radius:var(--radius-lg); background:linear-gradient(155deg, var(--color-primary) 0%, var(--color-secondary) 60%, var(--color-accent) 100%);
+    position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-lg); }
+  .about-visual::before{ content:"PS"; font-family:var(--font-secondary); font-size:120px; color:rgba(255,255,255,0.35); font-weight:700; }
+  .about-features{ display:grid; grid-template-columns:1fr 1fr; gap:14px 22px; margin:26px 0 32px; }
+  .feature-item{ display:flex; gap:10px; align-items:flex-start; font-size:15px; }
+  .feature-icon{ width:22px; height:22px; flex-shrink:0; background:var(--color-primary); color:var(--color-white); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:12px; }
+
+  /* Packages */
+  .packages{ background:var(--color-white); }
+  .package-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .package-card{ background:var(--color-light); border:1px solid rgba(217,184,168,0.4); border-radius:var(--radius-lg); padding:32px 28px;
+    display:flex; flex-direction:column; transition:var(--transition-medium); }
+  .package-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lg); border-color:var(--color-accent); }
+  .package-num{ font-size:12.5px; color:var(--color-accent); font-weight:700; letter-spacing:0.06em; text-transform:uppercase; }
+  .package-title{ font-size:23px; margin:12px 0 8px; }
+  .package-tag{ font-size:14px; color:rgba(45,45,45,0.65); margin-bottom:18px; }
+  .package-list{ display:flex; flex-direction:column; gap:9px; margin:0 0 24px; }
+  .package-list li{ font-size:14.5px; padding-left:20px; position:relative; color:rgba(45,45,45,0.85); }
+  .package-list li::before{ content:"—"; position:absolute; left:0; color:var(--color-accent); }
+  .package-card .btn{ margin-top:auto; }
+
+  /* Full menu accordion */
+  .full-menu{ background:var(--color-light); }
+  .menu-list{ border-top:1px solid rgba(45,45,45,0.1); }
+  .menu-item{ border-bottom:1px solid rgba(45,45,45,0.1); }
+  .menu-trigger{ width:100%; background:none; border:none; text-align:left; padding:22px 4px; display:flex; align-items:center;
+    justify-content:space-between; cursor:pointer; font-family:var(--font-secondary); font-size:18.5px; color:var(--color-dark); }
+  .menu-trigger .plus{ font-size:22px; color:var(--color-accent); transition:transform .3s ease; margin-left:20px; flex-shrink:0; }
+  .menu-item.open .menu-trigger .plus{ transform:rotate(45deg); }
+  .menu-panel{ max-height:0; overflow:hidden; transition:max-height .35s ease; }
+  .menu-panel p{ padding:0 4px 22px; color:rgba(45,45,45,0.7); font-size:15px; max-width:60ch; }
+
+  /* Why us */
+  .why-us{ background:var(--color-white); }
+  .benefits-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .benefit-card{ background:var(--color-light); border-radius:var(--radius-lg); padding:30px 26px; text-align:center; transition:var(--transition-medium); }
+  .benefit-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-md); }
+  .benefit-icon{ width:38px; height:38px; margin:0 auto 16px; border-radius:10px; background:rgba(166,127,111,0.15); color:var(--color-accent);
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-family:var(--font-secondary); }
+  .benefit-title{ font-size:18px; margin-bottom:8px; }
+  .benefit-text{ color:rgba(45,45,45,0.7); font-size:14.5px; }
+  .cta-box{ margin-top:54px; background:linear-gradient(135deg, var(--color-primary), var(--color-accent)); color:var(--color-white);
+    border-radius:var(--radius-lg); padding:42px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; box-shadow:var(--shadow-lg); }
+  .cta-title{ font-size:23px; max-width:420px; color:var(--color-white); }
+
+  /* Testimonials */
+  .testimonials{ background:var(--color-light); }
+  .testimonial-slider{ position:relative; max-width:760px; margin:0 auto; }
+  .testimonial-slide{ display:none; text-align:center; padding:40px 44px; background:var(--color-white); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); }
+  .testimonial-slide.active{ display:block; animation:fadeIn .5s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+  .testimonial-text{ font-family:var(--font-secondary); font-size:21px; font-style:italic; line-height:1.5; }
+  .testimonial-text::before{ content:'"'; color:rgba(166,127,111,0.3); font-size:44px; display:block; line-height:0.4; margin-bottom:14px; }
+  .author-name{ font-weight:700; margin-top:18px; }
+  .author-title{ color:rgba(45,45,45,0.6); font-size:14px; }
+  .testimonial-nav{ display:flex; justify-content:center; gap:14px; margin-top:26px; }
+  .testimonial-nav button{ width:40px; height:40px; border-radius:50%; background:var(--color-accent); color:var(--color-white); cursor:pointer; transition:.25s; }
+  .testimonial-nav button:hover{ background:var(--color-accent-dark); transform:translateY(-2px); }
+  .testimonial-dots{ display:flex; justify-content:center; gap:8px; margin-top:16px; }
+  .dot{ width:8px; height:8px; border-radius:50%; background:rgba(166,127,111,0.3); cursor:pointer; }
+  .dot.active{ background:var(--color-accent); width:22px; border-radius:5px; transition:.25s; }
+
+  .results-showcase{ margin-top:70px; text-align:center; }
+  .results-title{ font-size:23px; margin-bottom:32px; }
+  .results-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  .result-number{ font-family:var(--font-secondary); font-size:30px; color:var(--color-accent); font-weight:700; }
+  .result-text{ color:rgba(45,45,45,0.7); font-size:13.5px; margin-top:6px; }
+
+  /* Contact */
+  .contact{ background:var(--color-white); }
+  .contact-methods{ display:grid; grid-template-columns:1fr 1fr; gap:26px; }
+  .contact-method{ background:var(--color-light); border-radius:var(--radius-lg); padding:34px; }
+  .method-title{ font-size:19px; margin-bottom:10px; }
+  .method-text{ color:rgba(45,45,45,0.7); font-size:14.5px; margin-bottom:22px; }
+  .form-group{ margin-bottom:14px; }
+  input, textarea{ width:100%; padding:13px 16px; border-radius:var(--radius-sm); border:1px solid rgba(166,127,111,0.35);
+    font-family:inherit; font-size:14.5px; background:var(--color-white); color:var(--color-dark); }
+  textarea{ min-height:100px; resize:vertical; }
+  input:focus, textarea:focus{ outline:none; border-color:var(--color-accent); box-shadow:0 0 0 2px rgba(166,127,111,0.15); }
+  .form-status{ font-size:13.5px; margin-top:10px; color:var(--color-accent-dark); display:none; }
+  .form-status.show{ display:block; }
+
+  /* Footer */
+  footer.footer{ background:var(--color-dark); color:rgba(255,255,255,0.75); padding:64px 0 28px; }
+  .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:38px; }
+  .footer-logo{ font-family:var(--font-secondary); font-size:21px; font-weight:700; color:var(--color-white); }
+  .footer-text{ font-size:14px; margin:14px 0 18px; max-width:32ch; }
+  .social-links{ display:flex; gap:12px; }
+  .social-link{ width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; font-size:12.5px; transition:.25s; }
+  .social-link:hover{ background:var(--color-primary); color:var(--color-dark); }
+  .footer-title{ color:var(--color-white); font-size:15px; margin-bottom:16px; }
+  .footer-links{ display:flex; flex-direction:column; gap:10px; font-size:14px; }
+  .footer-links a:hover{ color:var(--color-primary); }
+  .footer-bottom{ border-top:1px solid rgba(255,255,255,0.1); margin-top:46px; padding-top:22px; font-size:13px; text-align:center; color:rgba(255,255,255,0.5); }
+
+  /* Promo popup */
+  .promo-overlay{ position:fixed; inset:0; background:rgba(45,45,45,0.55); backdrop-filter:blur(3px); display:flex; align-items:center; justify-content:center;
+    z-index:500; opacity:0; pointer-events:none; transition:opacity .35s ease; padding:20px; }
+  .promo-overlay.show{ opacity:1; pointer-events:auto; }
+  .promo-card{ background:var(--color-light); border-radius:22px; max-width:440px; width:100%; padding:40px 36px; position:relative;
+    transform:translateY(16px) scale(0.97); transition:transform .35s ease; box-shadow:0 40px 80px rgba(0,0,0,0.28); border:1px solid rgba(232,196,196,0.6); }
+  .promo-overlay.show .promo-card{ transform:translateY(0) scale(1); }
+  .promo-close{ position:absolute; top:16px; right:16px; width:32px; height:32px; border-radius:50%; background:var(--color-white); cursor:pointer; font-size:15px; color:var(--color-dark); box-shadow:var(--shadow-sm); }
+  .promo-title{ font-size:25px; margin:16px 0 10px; }
+  .promo-price{ font-family:var(--font-secondary); font-size:32px; color:var(--color-accent); margin:4px 0 16px; }
+  .promo-price span{ font-size:14px; font-family:var(--font-primary); color:rgba(45,45,45,0.6); font-weight:500; }
+  .promo-text{ color:rgba(45,45,45,0.7); font-size:14.5px; margin-bottom:24px; }
+  .promo-actions{ display:flex; gap:12px; flex-wrap:wrap; }
+
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  @media (max-width:960px){
+    .hero .container{ grid-template-columns:1fr; }
+    .about .container{ grid-template-columns:1fr; }
+    .package-grid{ grid-template-columns:1fr; }
+    .benefits-grid{ grid-template-columns:1fr 1fr; }
+    .stats .container{ grid-template-columns:1fr 1fr; }
+    .results-grid{ grid-template-columns:1fr 1fr; }
+    .contact-methods{ grid-template-columns:1fr; }
+    .footer-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:560px){
+    .benefits-grid{ grid-template-columns:1fr; }
+    .results-grid{ grid-template-columns:1fr 1fr; }
+    .footer-grid{ grid-template-columns:1fr; }
+    .cta-box{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <a href="/" class="logo">
-                <img src="images/logo-placeholder.png" alt="Priority Studio Logo" width="180" height="40">
-            </a>
-            
-            <nav class="nav">
-                <ul class="nav-list">
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#why-us" class="nav-link">Why Choose Us</a></li>
-                    <li><a href="#testimonials" class="nav-link">Client Wins</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-                
-                <a href="https://calendly.com/prioritystudio" class="btn btn-primary nav-cta">Book a Call</a>
-            </nav>
-            
-            <button class="mobile-nav-toggle" aria-label="Toggle navigation">
-                <span class="hamburger"></span>
-            </button>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title fade-in">Priority Studio</h1>
-                <p class="hero-text fade-in">Think of us as your entire Tech department. We handle the branding, tech setup, websites, and launch content that entrepreneurs dread—so you can run your business without ever worrying about the backend.</p>
-                <div class="hero-cta fade-in">
-                    <a href="https://calendly.com/prioritystudio" class="btn btn-primary">Get Started</a>
-                    <a href="#services" class="btn btn-secondary">Our Services</a>
-                </div>
-            </div>
-            
-            <div class="hero-image fade-in">
-                <img src="images/hero-bg.jpg" alt="Woman working on laptop with digital design tools" width="600" height="400" loading="lazy">
-            </div>
-        </div>
-    </section>
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="#home" class="logo">Priority<span>Studio</span></a>
+      <nav class="nav" id="siteNav">
+        <ul class="nav-list">
+          <li><a href="#home" class="nav-link">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#packages" class="nav-link">Services</a></li>
+          <li><a href="#why-us" class="nav-link">Why Us</a></li>
+          <li><a href="#testimonials" class="nav-link">Client Wins</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <a href="https://calendly.com/prioritystudio" class="btn btn-primary nav-cta">Book a Call</a>
+      </nav>
+      <button class="mobile-nav-toggle" id="navToggle" aria-label="Toggle navigation"><span class="hamburger"></span></button>
+    </div>
+  </header>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stat-item">
-                <div class="stat-number" data-count="150">0</div>
-                <div class="stat-label">Happy Clients</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-count="300">0</div>
-                <div class="stat-label">Projects Completed</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-count="98">0</div>
-                <div class="stat-label">Satisfaction Rate</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-count="24">0</div>
-                <div class="stat-label">Hours Support</div>
-            </div>
+  <section id="home" class="hero">
+    <div class="container">
+      <div>
+        <span class="eyebrow">Cape Town · Digital Department</span>
+        <h1 class="hero-title" style="margin-top:14px;">Everything digital, <em>handled</em> — while you run the business.</h1>
+        <p class="hero-text">Priority Studio is your on-call website, Shopify and social media team. No juggling freelancers, no tech overwhelm — just a done-for-you digital department built for Cape Town entrepreneurs.</p>
+        <div class="hero-cta">
+          <a href="https://calendly.com/prioritystudio" class="btn btn-primary">Book a Call</a>
+          <a href="#packages" class="btn btn-secondary">See What We Do</a>
         </div>
-    </section>
+      </div>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-image slide-in">
-                <img src="images/about-img.jpg" alt="Priority Studio team working together" width="500" height="600" loading="lazy">
-            </div>
-            
-            <div class="about-content">
-                <h2 class="section-title fade-in">About Priority Studio</h2>
-                <p class="about-text fade-in">We're the behind-the-scenes digital team that entrepreneurs wish they had. Founded by digital experts tired of seeing business owners struggle with tech, we've created a one-stop solution for all your digital needs.</p>
-                
-                <div class="about-features">
-                    <div class="feature-item fade-in">
-                        <div class="feature-icon">✓</div>
-                        <div class="feature-text">Comprehensive digital solutions</div>
-                    </div>
-                    <div class="feature-item fade-in">
-                        <div class="feature-icon">✓</div>
-                        <div class="feature-text">Experienced, dedicated team</div>
-                    </div>
-                    <div class="feature-item fade-in">
-                        <div class="feature-icon">✓</div>
-                        <div class="feature-text">Seamless client experience</div>
-                    </div>
-                    <div class="feature-item fade-in">
-                        <div class="feature-icon">✓</div>
-                        <div class="feature-text">Ongoing support & maintenance</div>
-                    </div>
-                </div>
-                
-                <a href="https://calendly.com/prioritystudio" class="btn btn-primary fade-in">Schedule Your Consultation</a>
-            </div>
+      <div class="mockup-wrap">
+        <div class="mockup-tabs">
+          <button class="mockup-tab active" data-tab="site">Website</button>
+          <button class="mockup-tab" data-tab="shopify">Shopify</button>
+          <button class="mockup-tab" data-tab="social">Social</button>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <h2 class="section-title fade-in">Our Services</h2>
-            <p class="section-subtitle fade-in">Comprehensive digital solutions tailored for entrepreneurs</p>
-            
-            <div class="services-grid">
-                <!-- Brand Identity Kit -->
-                <div class="service-card fade-in">
-                    <div class="service-icon"></div>
-                    <h3 class="service-title">Brand Identity Kit</h3>
-                    <p class="service-description">Logo, colour palette, fonts, mood board, brand strategy doc.</p>
-                    <div class="service-pricing">
-                        <span class="price">R2,500 – R6,000</span>
-                        <span class="price">$150 – $350</span>
-                    </div>
-                    <a href="https://calendly.com/prioritystudio" class="btn btn-secondary">Get Started</a>
-                </div>
-                
-                <!-- Social Media Launch Kit -->
-                <div class="service-card fade-in">
-                    <div class="service-icon"></div>
-                    <h3 class="service-title">Social Media Launch Kit</h3>
-                    <p class="service-description">10 branded templates, IG bio, highlights, 5 captions.</p>
-                    <div class="service-pricing">
-                        <span class="price">R1,500 – R4,000</span>
-                        <span class="price">$100 – $250</span>
-                    </div>
-                    <a href="https://calendly.com/prioritystudio" class="btn btn-secondary">Get Started</a>
-                </div>
-                
-                <!-- Website Starter -->
-                <div class="service-card fade-in">
-                    <div class="service-icon"></div>
-                    <h3 class="service-title">Website Starter (5 pages)</h3>
-                    <p class="service-description">Home, About, Services, Contact, Booking/Shop + mobile responsive.</p>
-                    <div class="service-pricing">
-                        <span class="price">R5,000 – R15,000</span>
-                        <span class="price">$300 – $900</span>
-                    </div>
-                    <a href="https://calendly.com/prioritystudio" class="btn btn-secondary">Get Started</a>
-                </div>
-                
-                <!-- Full Launch Build -->
-                <div class="service-card fade-in">
-                    <div class="service-icon"></div>
-                    <h3 class="service-title">Full Launch Build</h3>
-                    <p class="service-description">Brand identity, website, templates, email setup, launch content.</p>
-                    <div class="service-pricing">
-                        <span class="price">R15,000 – R30,000</span>
-                        <span class="price">$900 – $1,800</span>
-                    </div>
-                    <a href="https://calendly.com/prioritystudio" class="btn btn-secondary">Get Started</a>
-                </div>
-                
-                <!-- Studio Support Retainer -->
-                <div class="service-card fade-in">
-                    <div class="service-icon"></div>
-                    <h3 class="service-title">Studio Support Retainer</h3>
-                    <p class="service-description">Monthly admin, socials, content, inbox management.</p>
-                    <div class="service-pricing">
-                        <span class="price">R3,000 – R8,000/mo</span>
-                        <span class="price">$200 – $500/mo</span>
-                    </div>
-                    <a href="https://calendly.com/prioritystudio" class="btn btn-secondary">Get Started</a>
-                </div>
-                
-                <!-- Digital Product Design -->
-                <div class="service-card fade-in">
-                    <div class="service-icon"></div>
-                    <h3 class="service-title">Digital Product Design</h3>
-                    <p class="service-description">eBooks, guides, planners, checklists, workbooks.</p>
-                    <div class="service-pricing">
-                        <span class="price">R1,000 – R5,000</span>
-                        <span class="price">$50 – $300</span>
-                    </div>
-                    <a href="https://calendly.com/prioritystudio" class="btn btn-secondary">Get Started</a>
-                </div>
-                
-                <!-- Offer & Funnel Strategy -->
-                <div class="service-card fade-in">
-                    <div class="service-icon"></div>
-                    <h3 class="service-title">Offer & Funnel Strategy</h3>
-                    <p class="service-description">1:1 offer refinement + sales funnel setup.</p>
-                    <div class="service-pricing">
-                        <span class="price">R1,200 – R3,500</span>
-                        <span class="price">$75 – $200</span>
-                    </div>
-                    <a href="https://calendly.com/prioritystudio" class="btn btn-secondary">Get Started</a>
-                </div>
-                
-                <!-- Brand Audit & Revamp Strategy -->
-                <div class="service-card fade-in">
-                    <div class="service-icon"></div>
-                    <h3 class="service-title">Brand Audit & Revamp Strategy</h3>
-                    <p class="service-description">Full review + revamp plan.</p>
-                    <div class="service-pricing">
-                        <span class="price">R1,500 – R4,000</span>
-                        <span class="price">$100 – $250</span>
-                    </div>
-                    <a href="https://calendly.com/prioritystudio" class="btn btn-secondary">Get Started</a>
-                </div>
-                
-                <!-- Biz Setup Systems -->
-                <div class="service-card fade-in">
-                    <div class="service-icon"></div>
-                    <h3 class="service-title">Biz Setup Systems</h3>
-                    <p class="service-description">CRM, workflows, email, booking, onboarding, payment system setup.</p>
-                    <div class="service-pricing">
-                        <span class="price">R3,000 – R6,000</span>
-                        <span class="price">$200 – $400</span>
-                    </div>
-                    <a href="https://calendly.com/prioritystudio" class="btn btn-secondary">Get Started</a>
-                </div>
-                
-                <!-- 1:1 Strategy Call -->
-                <div class="service-card fade-in">
-                    <div class="service-icon"></div>
-                    <h3 class="service-title">1:1 Strategy Call</h3>
-                    <p class="service-description">60–90 mins recorded session + action plan doc.</p>
-                    <div class="service-pricing">
-                        <span class="price">R800 – R1,500</span>
-                        <span class="price">$50 – $100</span>
-                    </div>
-                    <a href="https://calendly.com/prioritystudio" class="btn btn-secondary">Get Started</a>
-                </div>
-            </div>
+        <div class="mockup-frame">
+          <div class="mockup-bar"><span></span><span></span><span></span></div>
+          <div class="mockup-body" id="mockupBody"></div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Why Choose Us Section -->
-    <section id="why-us" class="why-us">
-        <div class="container">
-            <h2 class="section-title fade-in">Why Choose Priority Studio</h2>
-            <p class="section-subtitle fade-in">We're not just another agency - we become your digital partner</p>
-            
-            <div class="benefits-grid">
-                <div class="benefit-card slide-in">
-                    <div class="benefit-icon"></div>
-                    <h3 class="benefit-title">All-in-One Solution</h3>
-                    <p class="benefit-text">No more juggling multiple freelancers or agencies. We handle everything digital in one place.</p>
-                </div>
-                
-                <div class="benefit-card slide-in">
-                    <div class="benefit-icon"></div>
-                    <h3 class="benefit-title">Time Savings</h3>
-                    <p class="benefit-text">Recover 10+ hours per week by offloading your digital tasks to our expert team.</p>
-                </div>
-                
-                <div class="benefit-card slide-in">
-                    <div class="benefit-icon"></div>
-                    <h3 class="benefit-title">Entrepreneur-Focused</h3>
-                    <p class="benefit-text">We speak your language and understand the unique challenges of running a business.</p>
-                </div>
-                
-                <div class="benefit-card slide-in">
-                    <div class="benefit-icon"></div>
-                    <h3 class="benefit-title">Ongoing Support</h3>
-                    <p class="benefit-text">We're here for the long haul with retainer options to keep your digital presence fresh.</p>
-                </div>
-                
-                <div class="benefit-card slide-in">
-                    <div class="benefit-icon"></div>
-                    <h3 class="benefit-title">Proven Results</h3>
-                    <p class="benefit-text">Our clients see measurable improvements in their digital presence and business growth.</p>
-                </div>
-                
-                <div class="benefit-card slide-in">
-                    <div class="benefit-icon"></div>
-                    <h3 class="benefit-title">Strategic Partnership</h3>
-                    <p class="benefit-text">We align our work with your business goals for maximum impact.</p>
-                </div>
-            </div>
-            
-            <div class="cta-box fade-in">
-                <h3 class="cta-title">Ready to upgrade your digital presence?</h3>
-                <a href="https://calendly.com/prioritystudio" class="btn btn-primary">Book Your Strategy Call</a>
-            </div>
+  <section class="stats">
+    <div class="container">
+      <div class="stat-item"><div class="stat-number" data-count="150">0</div><div class="stat-label">Happy Clients</div></div>
+      <div class="stat-item"><div class="stat-number" data-count="300">0</div><div class="stat-label">Projects Completed</div></div>
+      <div class="stat-item"><div class="stat-number" data-count="98">0</div><div class="stat-label">Satisfaction Rate</div></div>
+      <div class="stat-item"><div class="stat-number" data-count="24">0</div><div class="stat-label">Hours Support</div></div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="container">
+      <div class="about-visual reveal"></div>
+      <div>
+        <span class="eyebrow">About</span>
+        <h2 class="section-title reveal" style="margin-top:14px;">The behind-the-scenes team you wish you had sooner.</h2>
+        <p class="section-subtitle reveal" style="max-width:none; margin-bottom:0;">We're the digital department entrepreneurs bring in once they're tired of DIY-ing their website, store and socials. One team, one point of contact, everything handled properly.</p>
+        <div class="about-features">
+          <div class="feature-item reveal"><span class="feature-icon">✓</span> Comprehensive digital solutions</div>
+          <div class="feature-item reveal"><span class="feature-icon">✓</span> Experienced, dedicated team</div>
+          <div class="feature-item reveal"><span class="feature-icon">✓</span> Seamless client experience</div>
+          <div class="feature-item reveal"><span class="feature-icon">✓</span> Ongoing support & maintenance</div>
         </div>
-    </section>
+        <a href="https://calendly.com/prioritystudio" class="btn btn-dark reveal">Schedule Your Consultation</a>
+      </div>
+    </div>
+  </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <div class="container">
-            <h2 class="section-title fade-in">Client Wins</h2>
-            <p class="section-subtitle fade-in">What our clients say about working with us</p>
-            
-            <div class="testimonial-slider">
-                <div class="testimonial-slide active">
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">"Nashaa has been an absolute dream to have onboard from the very start of my business journey. She consistently goes above and beyond, taking on tasks outside her scope simply"</p>
-                        <div class="testimonial-author">
-                            <div class="author-name">Kirsten </div>
-                            <div class="author-title">Founder, Oracle Method </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-slide">
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">"As a solopreneur, I was drowning in tech setup. Priority Studio handled everything from my website to email automation, saving me countless hours and headaches. Now I can actually focus on serving my clients."</p>
-                        <div class="testimonial-author">
-                            <div class="author-name">James L.</div>
-                            <div class="author-title">Business Coach</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-slide">
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">"Our launch was a huge success thanks to Priority Studio's comprehensive approach. They coordinated our branding, website, and social media for a powerful, unified launch that exceeded our goals."</p>
-                        <div class="testimonial-author">
-                            <div class="author-name">Megan T.</div>
-                            <div class="author-title">CEO, Fashion Startup</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-nav">
-                    <button class="testimonial-prev" aria-label="Previous testimonial">←</button>
-                    <button class="testimonial-next" aria-label="Next testimonial">→</button>
-                </div>
-            </div>
-            
-            <div class="results-showcase fade-in">
-                <h3 class="results-title">Real Results We've Delivered</h3>
-                <div class="results-grid">
-                    <div class="result-item">
-                        <div class="result-number">3x</div>
-                        <div class="result-text">Increase in website conversions</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-number">40%</div>
-                        <div class="result-text">More engagement on social media</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-number">2.5x</div>
-                        <div class="result-text">Higher email open rates</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-number">75%</div>
-                        <div class="result-text">Reduction in tech-related stress</div>
-                    </div>
-                </div>
-            </div>
+  <section id="packages" class="packages">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">What We Focus On</span>
+        <h2 class="section-title reveal" style="margin-top:14px;">Three ways we grow your business online</h2>
+        <p class="section-subtitle reveal" style="margin:0 auto;">Our core packages — everything else we offer sits below.</p>
+      </div>
+      <div class="package-grid">
+        <div class="package-card reveal">
+          <span class="package-num">01 — Website Building</span>
+          <h3 class="package-title">A site that works as hard as you do</h3>
+          <p class="package-tag">Custom-built, mobile-first, on-brand.</p>
+          <ul class="package-list">
+            <li>Custom page design, not a template feel</li>
+            <li>Mobile-first & fast-loading</li>
+            <li>On-brand copy & visuals</li>
+            <li>Booking, shop or contact integration</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">Enquire Now</a>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-content">
-                <h2 class="section-title fade-in">Let's Work Together</h2>
-                <p class="section-subtitle fade-in">Schedule a call or send us a message to discuss your project</p>
-                
-                <div class="contact-methods">
-                    <div class="contact-method fade-in">
-                        <h3 class="method-title">Book a Call</h3>
-                        <p class="method-text">Schedule a strategy session directly with our team to discuss your needs.</p>
-                        <a href="https://calendly.com/prioritystudio" class="btn btn-primary">Book Now</a>
-                    </div>
-                    
-                    <div class="contact-method fade-in">
-                        <h3 class="method-title">Send Us a Message</h3>
-                        <form id="contact-form" class="contact-form">
-                            <div class="form-group">
-                                <input type="text" id="name" name="name" placeholder="Your Name" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" id="email" name="email" placeholder="Your Email" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="business" name="business" placeholder="Business Name">
-                            </div>
-                            <div class="form-group">
-                                <textarea id="message" name="message" placeholder="How can we help you?" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Send Message</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <div class="package-card reveal">
+          <span class="package-num">02 — Shopify Set-Up</span>
+          <h3 class="package-title">Your store, ready to sell</h3>
+          <p class="package-tag">From empty cart to first sale.</p>
+          <ul class="package-list">
+            <li>Full Shopify store build</li>
+            <li>Product catalogue & listings</li>
+            <li>Payments & shipping configured</li>
+            <li>Walkthrough training so you're not lost</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">Enquire Now</a>
         </div>
-    </section>
-
-    <!-- Newsletter Section -->
-    <section class="newsletter">
-        <div class="container">
-            <div class="newsletter-content fade-in">
-                <h2 class="newsletter-title">Digital Insights for Entrepreneurs</h2>
-                <p class="newsletter-text">Subscribe to our newsletter for tips, strategies, and special offers to grow your business.</p>
-                
-                <form id="newsletter-form" class="newsletter-form">
-                    <input type="email" id="newsletter-email" placeholder="Your email address" required>
-                    <button type="submit" class="btn btn-primary">Subscribe</button>
-                </form>
-                
-                <p class="newsletter-disclaimer">We respect your privacy. Unsubscribe at any time.</p>
-            </div>
+        <div class="package-card reveal">
+          <span class="package-num">03 — Social Media Management</span>
+          <h3 class="package-title">Consistent, on-brand, done for you</h3>
+          <p class="package-tag">From only R1,500/month.</p>
+          <ul class="package-list">
+            <li>Monthly content calendar</li>
+            <li>Branded graphics & captions</li>
+            <li>Posting & scheduling handled</li>
+            <li>Monthly performance check-in</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">Enquire Now</a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <img src="images/logo-placeholder.svg" alt="Priority Studio Logo" class="footer-logo" width="160" height="36">
-                    <p class="footer-text">Your complete digital department for branding, tech setup, and launch content.</p>
-                    
-                    <div class="social-links">
-                        <a href="#" class="social-link" aria-label="Instagram"></a>
-                        <a href="#" class="social-link" aria-label="Facebook"></a>
-                        <a href="#" class="social-link" aria-label="LinkedIn"></a>
-                        <a href="#" class="social-link" aria-label="Twitter"></a>
-                    </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h3 class="footer-title">Services</h3>
-                    <ul class="footer-links">
-                        <li><a href="#services">Brand Identity</a></li>
-                        <li><a href="#services">Website Design</a></li>
-                        <li><a href="#services">Launch Packages</a></li>
-                        <li><a href="#services">Ongoing Support</a></li>
-                        <li><a href="#services">Digital Products</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3 class="footer-title">Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#why-us">Why Choose Us</a></li>
-                        <li><a href="#testimonials">Client Wins</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3 class="footer-title">Legal</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p class="copyright">© <span id="year"></span> Priority Studio. All rights reserved.</p>
-            </div>
+  <section class="full-menu">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Full Service Menu</span>
+        <h2 class="section-title reveal" style="margin-top:14px;">Everything else we can take off your plate</h2>
+        <p class="section-subtitle reveal" style="margin:0 auto;">Tap any service to see what's included — happy to scope a custom package too.</p>
+      </div>
+      <div class="menu-list" id="menuList">
+        <div class="menu-item">
+          <button class="menu-trigger"><span>Brand Identity Kit</span><span class="plus">+</span></button>
+          <div class="menu-panel"><p>Logo, colour palette, fonts, mood board and a short brand strategy doc — the foundation everything else is built on.</p></div>
         </div>
-    </footer>
+        <div class="menu-item">
+          <button class="menu-trigger"><span>Social Media Launch Kit</span><span class="plus">+</span></button>
+          <div class="menu-panel"><p>10 branded templates, a designed Instagram bio & highlights, plus 5 ready-to-post captions to launch your page properly.</p></div>
+        </div>
+        <div class="menu-item">
+          <button class="menu-trigger"><span>Website Starter (5 Pages)</span><span class="plus">+</span></button>
+          <div class="menu-panel"><p>Home, About, Services, Contact and a Booking or Shop page — fully responsive, for businesses that need a lighter footprint online.</p></div>
+        </div>
+        <div class="menu-item">
+          <button class="menu-trigger"><span>Full Launch Build</span><span class="plus">+</span></button>
+          <div class="menu-panel"><p>Brand identity, website, social templates, email set-up and launch content — a complete start-to-finish launch, coordinated by one team.</p></div>
+        </div>
+        <div class="menu-item">
+          <button class="menu-trigger"><span>Studio Support Retainer</span><span class="plus">+</span></button>
+          <div class="menu-panel"><p>Ongoing monthly admin, social media, content and inbox management — for founders who want an extra pair of hands every month.</p></div>
+        </div>
+        <div class="menu-item">
+          <button class="menu-trigger"><span>Digital Product Design</span><span class="plus">+</span></button>
+          <div class="menu-panel"><p>eBooks, guides, planners, checklists and workbooks — designed to sell or to support your existing offer.</p></div>
+        </div>
+        <div class="menu-item">
+          <button class="menu-trigger"><span>Offer & Funnel Strategy</span><span class="plus">+</span></button>
+          <div class="menu-panel"><p>A 1:1 session to refine your offer and map out a simple sales funnel that actually converts.</p></div>
+        </div>
+        <div class="menu-item">
+          <button class="menu-trigger"><span>Brand Audit & Revamp Strategy</span><span class="plus">+</span></button>
+          <div class="menu-panel"><p>A full review of your current brand and digital presence, with a clear revamp plan and priorities.</p></div>
+        </div>
+        <div class="menu-item">
+          <button class="menu-trigger"><span>Biz Setup Systems</span><span class="plus">+</span></button>
+          <div class="menu-panel"><p>CRM, workflows, email, booking, onboarding and payment systems — set up properly so nothing runs on sticky notes.</p></div>
+        </div>
+        <div class="menu-item">
+          <button class="menu-trigger"><span>1:1 Strategy Call</span><span class="plus">+</span></button>
+          <div class="menu-panel"><p>A focused 60–90 minute recorded session, plus an action plan doc you can actually follow afterwards.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Scripts -->
-    <script src="js/main.js" defer></script>
-    <script src="js/animations.js" defer></script>
-    <script src="js/form-handler.js" defer></script>
-    
-    <!-- Calendly widget -->
-    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <section id="why-us" class="why-us">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Why Priority Studio</span>
+        <h2 class="section-title reveal" style="margin-top:14px;">We're not just another agency</h2>
+        <p class="section-subtitle reveal" style="margin:0 auto;">We become your digital partner — here's what that actually means.</p>
+      </div>
+      <div class="benefits-grid">
+        <div class="benefit-card reveal"><div class="benefit-icon">1</div><h3 class="benefit-title">All-in-One Solution</h3><p class="benefit-text">No more juggling multiple freelancers or agencies. We handle everything digital in one place.</p></div>
+        <div class="benefit-card reveal"><div class="benefit-icon">2</div><h3 class="benefit-title">Time Savings</h3><p class="benefit-text">Recover 10+ hours a week by offloading your digital tasks to our team.</p></div>
+        <div class="benefit-card reveal"><div class="benefit-icon">3</div><h3 class="benefit-title">Entrepreneur-Focused</h3><p class="benefit-text">We speak your language and understand the pressure of running a business.</p></div>
+        <div class="benefit-card reveal"><div class="benefit-icon">4</div><h3 class="benefit-title">Ongoing Support</h3><p class="benefit-text">Retainer options keep your digital presence fresh long after launch.</p></div>
+        <div class="benefit-card reveal"><div class="benefit-icon">5</div><h3 class="benefit-title">Proven Results</h3><p class="benefit-text">Our clients see measurable improvement in presence and growth.</p></div>
+        <div class="benefit-card reveal"><div class="benefit-icon">6</div><h3 class="benefit-title">Strategic Partnership</h3><p class="benefit-text">We align our work with your actual business goals, not vanity metrics.</p></div>
+      </div>
+      <div class="cta-box reveal">
+        <h3 class="cta-title">Ready to upgrade your digital presence?</h3>
+        <a href="https://calendly.com/prioritystudio" class="btn btn-dark">Book Your Strategy Call</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="testimonials">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" style="justify-content:center;">Client Wins</span>
+        <h2 class="section-title reveal" style="margin-top:14px;">What it's like to work with us</h2>
+      </div>
+
+      <div class="testimonial-slider">
+        <div class="testimonial-slide active">
+          <p class="testimonial-text">"Nashaa has been an absolute dream to have onboard from the very start of my business journey. She consistently goes above and beyond, taking on tasks outside her scope."</p>
+          <div class="author-name">Kirsten</div>
+          <div class="author-title">Founder, Oracle Method</div>
+        </div>
+        <div class="testimonial-slide">
+          <p class="testimonial-text">"As a solopreneur, I was drowning in tech setup. Priority Studio handled everything from my website to email automation, saving me countless hours and headaches."</p>
+          <div class="author-name">James L.</div>
+          <div class="author-title">Business Coach</div>
+        </div>
+        <div class="testimonial-slide">
+          <p class="testimonial-text">"Our launch was a huge success thanks to Priority Studio's comprehensive approach. They coordinated our branding, website and social media for a powerful, unified launch."</p>
+          <div class="author-name">Megan T.</div>
+          <div class="author-title">CEO, Fashion Startup</div>
+        </div>
+        <div class="testimonial-nav">
+          <button id="testPrev" aria-label="Previous testimonial">←</button>
+          <button id="testNext" aria-label="Next testimonial">→</button>
+        </div>
+        <div class="testimonial-dots" id="testDots"></div>
+      </div>
+
+      <div class="results-showcase">
+        <h3 class="results-title reveal">Real Results We've Delivered</h3>
+        <div class="results-grid">
+          <div class="result-item reveal"><div class="result-number">3x</div><div class="result-text">Increase in website conversions</div></div>
+          <div class="result-item reveal"><div class="result-number">40%</div><div class="result-text">More engagement on social media</div></div>
+          <div class="result-item reveal"><div class="result-number">2.5x</div><div class="result-text">Higher email open rates</div></div>
+          <div class="result-item reveal"><div class="result-number">75%</div><div class="result-text">Reduction in tech-related stress</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" style="justify-content:center;">Let's Talk</span>
+        <h2 class="section-title reveal" style="margin-top:14px;">Let's work together</h2>
+        <p class="section-subtitle reveal" style="margin:0 auto;">Book a call or send a message — whichever's easier.</p>
+      </div>
+      <div class="contact-methods">
+        <div class="contact-method reveal">
+          <h3 class="method-title">Book a Call</h3>
+          <p class="method-text">Schedule a strategy session directly with the team to talk through your project.</p>
+          <a href="https://calendly.com/prioritystudio" class="btn btn-primary">Book Now</a>
+          <div style="margin-top:14px;">
+            <a href="https://wa.me/27000000000" class="btn btn-whatsapp">Chat on WhatsApp</a>
+          </div>
+        </div>
+        <div class="contact-method reveal">
+          <h3 class="method-title">Send Us a Message</h3>
+          <form id="contact-form">
+            <div class="form-group"><input type="text" name="name" placeholder="Your Name" required></div>
+            <div class="form-group"><input type="email" name="email" placeholder="Your Email" required></div>
+            <div class="form-group"><input type="text" name="business" placeholder="Business Name"></div>
+            <div class="form-group"><textarea name="message" placeholder="How can we help you?" required></textarea></div>
+            <button type="submit" class="btn btn-dark">Send Message</button>
+            <p class="form-status" id="formStatus">Thanks — we'll be in touch within 24 hours.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">Priority<span style="color:var(--color-primary)">Studio</span></div>
+          <p class="footer-text">Your complete digital department for websites, Shopify stores and social media management.</p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Instagram">IG</a>
+            <a href="#" class="social-link" aria-label="Facebook">FB</a>
+            <a href="#" class="social-link" aria-label="LinkedIn">Li</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-title">Services</h3>
+          <ul class="footer-links">
+            <li><a href="#packages">Website Building</a></li>
+            <li><a href="#packages">Shopify Set-Up</a></li>
+            <li><a href="#packages">Social Media Management</a></li>
+            <li><a href="#" onclick="document.getElementById('menuList').scrollIntoView({behavior:'smooth'}); return false;">Full Service Menu</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-title">Company</h3>
+          <ul class="footer-links">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#why-us">Why Choose Us</a></li>
+            <li><a href="#testimonials">Client Wins</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-title">Legal</h3>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">© <span id="year"></span> Priority Studio. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Promo popup -->
+  <div class="promo-overlay" id="promoOverlay">
+    <div class="promo-card">
+      <button class="promo-close" id="promoClose" aria-label="Close">✕</button>
+      <span class="eyebrow">Limited Offer</span>
+      <h3 class="promo-title">Get your social media on point ✨</h3>
+      <div class="promo-price">R1,500 <span>/ month, starting from</span></div>
+      <p class="promo-text">Done-for-you content, posting and monthly reporting — so your socials finally work as hard as you do.</p>
+      <div class="promo-actions">
+        <a href="https://wa.me/27000000000?text=Hi!%20I'd%20like%20to%20find%20out%20more%20about%20the%20R1500%20social%20media%20package" class="btn btn-whatsapp">Chat on WhatsApp</a>
+        <button class="btn btn-secondary" id="promoLater">Maybe later</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 40));
+
+  const navToggle = document.getElementById('navToggle');
+  const siteNav = document.getElementById('siteNav');
+  navToggle.addEventListener('click', () => { navToggle.classList.toggle('open'); siteNav.classList.toggle('open'); });
+  siteNav.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', () => { navToggle.classList.remove('open'); siteNav.classList.remove('open'); }));
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => { if (window.scrollY >= sec.offsetTop - 140) current = sec.id; });
+    navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + current));
+  });
+
+  const mockData = {
+    site: { html: `<span class="mockup-chip chip-a">Home</span><span class="mockup-chip chip-b">Services</span><span class="mockup-chip chip-c">Contact</span>
+      <h4>Your Business, Beautifully Online</h4><p>Custom-built, mobile-first and ready to convert visitors into clients.</p>
+      <div class="mockup-bars"><i style="height:40%"></i><i style="height:70%"></i><i style="height:55%"></i><i style="height:85%"></i><i style="height:60%"></i></div>` },
+    shopify: { html: `<span class="mockup-chip chip-a">In Stock</span><span class="mockup-chip chip-b">Free Shipping</span>
+      <h4>Your Store, Ready to Sell</h4><p>Catalogue, payments and shipping configured — plus training so you're never lost in the backend.</p>
+      <div class="mockup-bars"><i style="height:55%"></i><i style="height:30%"></i><i style="height:90%"></i><i style="height:45%"></i><i style="height:70%"></i></div>` },
+    social: { html: `<span class="mockup-chip chip-c">Posted</span><span class="mockup-chip chip-a">+40% Reach</span>
+      <h4>Consistent, On-Brand Content</h4><p>Monthly calendar, branded graphics and captions — done for you, from R1,500/month.</p>
+      <div class="mockup-bars"><i style="height:35%"></i><i style="height:65%"></i><i style="height:50%"></i><i style="height:95%"></i><i style="height:75%"></i></div>` }
+  };
+  const mockupBody = document.getElementById('mockupBody');
+  const tabs = document.querySelectorAll('.mockup-tab');
+  function setTab(name){ tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name)); mockupBody.innerHTML = mockData[name].html; }
+  tabs.forEach(tab => tab.addEventListener('click', () => setTab(tab.dataset.tab)));
+  setTab('site');
+  let mockCycle = 0;
+  const mockOrder = ['site','shopify','social'];
+  setInterval(() => { mockCycle = (mockCycle + 1) % mockOrder.length; setTab(mockOrder[mockCycle]); }, 5000);
+
+  const statNums = document.querySelectorAll('.stat-number');
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target; const target = parseInt(el.dataset.count, 10);
+        let cur = 0; const step = Math.max(1, Math.round(target / 60));
+        const timer = setInterval(() => { cur += step; if (cur >= target) { cur = target; clearInterval(timer); } el.textContent = cur; }, 25);
+        statObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  statNums.forEach(el => statObserver.observe(el));
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('in'); revealObserver.unobserve(entry.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  document.querySelectorAll('.menu-item').forEach(item => {
+    const trigger = item.querySelector('.menu-trigger');
+    const panel = item.querySelector('.menu-panel');
+    trigger.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.menu-item.open').forEach(openItem => { openItem.classList.remove('open'); openItem.querySelector('.menu-panel').style.maxHeight = null; });
+      if (!isOpen) { item.classList.add('open'); panel.style.maxHeight = panel.scrollHeight + 'px'; }
+    });
+  });
+
+  const slides = document.querySelectorAll('.testimonial-slide');
+  const dotsWrap = document.getElementById('testDots');
+  slides.forEach((_, i) => { const dot = document.createElement('button'); dot.className = 'dot' + (i === 0 ? ' active' : ''); dot.addEventListener('click', () => showSlide(i)); dotsWrap.appendChild(dot); });
+  const dots = dotsWrap.querySelectorAll('.dot');
+  let activeSlide = 0;
+  function showSlide(i){ slides[activeSlide].classList.remove('active'); dots[activeSlide].classList.remove('active'); activeSlide = (i + slides.length) % slides.length; slides[activeSlide].classList.add('active'); dots[activeSlide].classList.add('active'); }
+  document.getElementById('testPrev').addEventListener('click', () => showSlide(activeSlide - 1));
+  document.getElementById('testNext').addEventListener('click', () => showSlide(activeSlide + 1));
+  setInterval(() => showSlide(activeSlide + 1), 7000);
+
+  const form = document.getElementById('contact-form');
+  const formStatus = document.getElementById('formStatus');
+  form.addEventListener('submit', (e) => { e.preventDefault(); formStatus.classList.add('show'); form.reset(); });
+
+  const promoOverlay = document.getElementById('promoOverlay');
+  const promoClose = document.getElementById('promoClose');
+  const promoLater = document.getElementById('promoLater');
+  setTimeout(() => promoOverlay.classList.add('show'), 4000);
+  function closePromo(){ promoOverlay.classList.remove('show'); }
+  promoClose.addEventListener('click', closePromo);
+  promoLater.addEventListener('click', closePromo);
+  promoOverlay.addEventListener('click', (e) => { if (e.target === promoOverlay) closePromo(); });
+</script>
 </body>
 </html>
