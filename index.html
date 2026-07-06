@@ -504,7 +504,7 @@
           <p class="method-text">Schedule a strategy session directly with the team to talk through your project.</p>
           <a href="https://calendly.com/prioritystudio" class="btn btn-primary">Book Now</a>
           <div style="margin-top:14px;">
-            <a href="https://wa.me/27681674473" class="btn btn-whatsapp">Chat on WhatsApp</a>
+            <a href="#" class="btn btn-whatsapp whatsapp-link" data-message="Hi! I’d like to chat about my project.">Chat on WhatsApp</a>
           </div>
         </div>
         <div class="contact-method reveal">
@@ -573,7 +573,7 @@
       <div class="promo-price">R1,500 <span>/ month, starting from</span></div>
       <p class="promo-text">Done-for-you content, posting and monthly reporting — so your socials finally work as hard as you do.</p>
       <div class="promo-actions">
-        <a href="https://wa.me/27681674473?text=Hi!%20I'd%20like%20to%20find%20out%20more%20about%20the%20R1500%20social%20media%20package" class="btn btn-whatsapp">Chat on WhatsApp</a>
+        <a href="#" class="btn btn-whatsapp whatsapp-link" data-message="Hi! I’d like to find out more about the R1500 social media package.">Chat on WhatsApp</a>
         <button class="btn btn-secondary" id="promoLater">Maybe later</button>
       </div>
     </div>
@@ -657,9 +657,40 @@
   document.getElementById('testNext').addEventListener('click', () => showSlide(activeSlide + 1));
   setInterval(() => showSlide(activeSlide + 1), 7000);
 
+  const whatsappNumber = '27681674473';
+  function buildWhatsAppUrl(message) {
+    return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  }
+
+  document.querySelectorAll('.whatsapp-link').forEach(link => {
+    const defaultMessage = link.dataset.message || "Hi! I'd like to chat about your services.";
+    link.href = buildWhatsAppUrl(defaultMessage);
+  });
+
   const form = document.getElementById('contact-form');
   const formStatus = document.getElementById('formStatus');
-  form.addEventListener('submit', (e) => { e.preventDefault(); formStatus.classList.add('show'); form.reset(); });
+  if (form && formStatus) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = form.querySelector('input[name="name"]').value.trim();
+      const email = form.querySelector('input[name="email"]').value.trim();
+      const business = form.querySelector('input[name="business"]').value.trim();
+      const message = form.querySelector('textarea[name="message"]').value.trim();
+
+      const chatMessage = `Hello! My name is ${name || '...'}${email ? ` (${email})` : ''}${business ? ` from ${business}` : ''}. ${message ? `Message: ${message}` : ''}`;
+      const whatsappUrl = buildWhatsAppUrl(chatMessage);
+      const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
+      if (!newWindow) {
+        window.location.href = whatsappUrl;
+      }
+
+      formStatus.textContent = 'Opening WhatsApp…';
+      formStatus.classList.add('show');
+      form.reset();
+    });
+  }
 
   const promoOverlay = document.getElementById('promoOverlay');
   const promoClose = document.getElementById('promoClose');
